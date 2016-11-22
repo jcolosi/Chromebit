@@ -1,0 +1,8 @@
+body {
+  background: no-repeat fixed center; 
+  background-color: #fff;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover; // contain
+}
