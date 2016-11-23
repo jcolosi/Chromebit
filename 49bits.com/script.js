@@ -13,7 +13,7 @@ shuffle(nums);
 var numIndex = 0;
 
 // Event timings
-$interval = 2
+$interval = 6
 repeat(putPwd,$interval);
 
 function repeat(handle, seconds) {
@@ -40,17 +40,21 @@ function nx() {
   return padder(Math.floor(Math.random()*1000));
 }
 
+// Best
 function pwd() {
   return w() + n() + w() + n() + w();
 }
  
+function pwdV2() {
+	 var n = getNumbersV2();
+  return w() + n[0] + w() + n[1] + w();
+}
+ 
 function putPwd() {
   $('#PwdRoot').empty();
-  var block = $('<span />').addClass('pwdBlock');
-  var thisPwd = pwd();
-  console.log(thisPwd);
-  block.append(thisPwd);
-  $('#PwdRoot').append(thisPwd);
+  $('#PwdRoot').append( $('<span />').addClass('pwdBlock').append(pwd()));
+  $('#PwdRoot').append( $('<p>'));
+  $('#PwdRoot').append( $('<span />').addClass('pwdBlock').append(pwdV2()));
 }
 
 function putTime() {
@@ -77,6 +81,15 @@ function putQuote() {
   $('#QuoteRoot').append(quotes[quoteIndex]);
   quoteIndex++;
   quoteIndex %= quotes.length;
+}
+
+function getNumbersV2() {
+	 var dgt = new Array(0,1,2,3,4,5,6,7,8,9);
+		shuffle(dgt);
+		var plt = new Array(dgt[0],dgt[0],dgt[1],dgt[1],dgt[2],dgt[2]);
+		shuffle(plt);
+		var out = new Array(""+plt[0]+plt[1]+plt[2],""+plt[3]+plt[4]+plt[5]);
+		return out;
 }
 
 function shuffle(array) {
