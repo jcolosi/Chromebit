@@ -14,7 +14,8 @@ var numIndex = 0;
 
 // Event timings
 $interval = 6
-repeat(putPwd,$interval);
+//repeat(putTime,$interval);
+setTimeout(initPwd);
 
 function repeat(handle, seconds) {
   setTimeout(handle);
@@ -28,7 +29,7 @@ function w() {
  return out;
 }
 
-// Return a random word
+// Return a random number
 function n() {
  var out = nums[numIndex++];
  numIndex %= nums.length;
@@ -37,8 +38,94 @@ function n() {
 
 // Return a number on [0,999]
 function nx() {
-  return padder(Math.floor(Math.random()*1000));
+  return pad3(Math.floor(Math.random()*1000));
 }
+
+function initPwd() {
+  $('#PwdRoot').empty();
+  for (i = 0; i < 20; i++) {
+    addPwdBlock(i);
+  }
+}
+
+function addPwdBlock(which) {
+  var pwdDiv = $('<div/>');
+  pwdDiv.addClass('btn-group');
+  pwdDiv.addClass('btn-group-md');
+
+  var pwdLeft = $('<button/>');
+  pwdLeft.css({ width: "240px" });
+  pwdLeft.attr('id','pwd'+which);
+  pwdLeft.attr('type','button');
+  pwdLeft.addClass('btn');
+  pwdLeft.addClass('btn-default');
+		var newPwd = pwd();
+  console.log(newPwd);
+  pwdLeft.append(newPwd);
+  pwdDiv.append(pwdLeft);
+
+  var pwdRight = $('<button/>');
+  pwdRight.attr('id','flag'+which);
+  pwdRight.attr('type','button');
+  pwdRight.addClass('btn');
+  pwdRight.addClass('btn-success');
+  pwdRight.addClass('fader');
+		//var duration = (Math.random()*10) + 10;
+		var duration = (which/2) + 10;
+		console.log(duration);
+		pwdRight.css('animation-name','FlagCycle');
+		pwdRight.css('animation-duration',duration+'s');
+  pwdRight.append('&nbsp;');
+
+		var resetPwd = function (which) {
+	   console.log("resetting pwd:: "+which);
+    $('#pwd'+which).html(pwd());
+    $('#flag'+which).css('animation-duration','20s');
+  };
+
+		//pwdRight.bind('transitionend webkitTransitionEnd oTransitionEnd', function (which) {
+	   //console.log("resetting pwd:: "+which);
+    //$('#pwd'+which).html(pwd());
+    //$('#flag'+which).css('animation-duration','20s');
+  //});
+
+//pwdRight.addEventListener("animationend", resetPwdX,false);
+//pwdRight.addEventListener("webkitAnimationEnd", resetPwdX,false);
+//pwdRight.addEventListener("oAnimationend", resetPwdX,false);
+		
+
+		pwdRight.bind('animationend webkitAnimationEnd oAnimationEnd', resetPwdX);
+		//pwdRight.bind('animationend webkitAnimationEnd oAnimationEnd', function (which) {
+	   //console.log("resetting pwd:: "+which);
+    //$('#pwd'+which).html(pwd());
+    //$('#flag'+which).css('animation-duration','20s');
+  //});
+
+		//pwdRight.bind('animationend webkitAnimationEnd', resetPwd(which));
+			//$(tag).html(pwd());
+			//$('#flag'+which).css('animation-duration','20s');
+		//} );
+
+		//console.log(">>> "+(duration*1000));
+  //pwdRight.animate({}, duration * 1000, resetPwd(which));
+			    //$('#pwd'+which).html(pwd());
+			    //$('#flag'+which).css('animation-duration','20s');
+  //});
+		
+  pwdDiv.append(pwdRight);
+
+  $('#PwdRoot').append(pwdDiv);
+  $('#PwdRoot').append($('<p>'));
+}
+
+function resetPwdX (e) {
+	   console.log("resetPwdX()");
+	   console.log(e.target());
+    //$('#pwd'+which).html(pwd());
+    //$('#flag'+which).css('animation-duration','20s');
+  };
+
+
 
 // Best
 function pwd() {
@@ -46,7 +133,7 @@ function pwd() {
 }
  
 function pwdV2() {
-	 var n = getNumbersV2();
+  var n = getNumbersV2();
   return w() + n[0] + w() + n[1] + w();
 }
  
@@ -70,7 +157,7 @@ function putTime() {
   }
   if (hours == 0) hours = 12;
   putString += hours;
-  putString += ":" + padder(date.getMinutes());
+  putString += ":" + pad2(date.getMinutes());
   putString += " " + meridian;
   $('#TimeRoot').append(putString);
   //console.log(putString);
@@ -85,12 +172,12 @@ function putQuote() {
 }
 
 function getNumbersV2() {
-	 var dgt = new Array(0,1,2,3,4,5,6,7,8,9);
-		shuffle(dgt);
-		var plt = new Array(dgt[0],dgt[0],dgt[1],dgt[1],dgt[2],dgt[2]);
-		shuffle(plt);
-		var out = new Array(""+plt[0]+plt[1]+plt[2],""+plt[3]+plt[4]+plt[5]);
-		return out;
+  var dgt = new Array(0,1,2,3,4,5,6,7,8,9);
+  shuffle(dgt);
+  var plt = new Array(dgt[0],dgt[0],dgt[1],dgt[1],dgt[2],dgt[2]);
+  shuffle(plt);
+  var out = new Array(""+plt[0]+plt[1]+plt[2],""+plt[3]+plt[4]+plt[5]);
+  return out;
 }
 
 function shuffle(array) {
@@ -113,7 +200,13 @@ function shuffle(array) {
   return array;
 }
 
-function padder(x) {
+function pad2(x) {
+  var pad = "";
+  if (x<10) pad += '0';
+  return pad+x;
+}
+
+function pad3(x) {
   var pad = "";
   if (x<10) pad += '0';
   if (x<100) pad += '0';
