@@ -41,28 +41,39 @@ function nx() {
   return pad3(Math.floor(Math.random()*1000));
 }
 
+// Notes
+// Animationend event is never thrown with iteration-count=infinite
+// Use animation-iteration with infinite
+
+$blocks = 20
+$cycle = 20
+
 function initPwd() {
   $('#PwdRoot').empty();
-  for (i = 0; i < 20; i++) {
+  for (i = 0; i < $blocks; i++) {
     addPwdBlock(i);
   }
 }
 
-function addPwdBlock(which) {
-  var pwdDiv = $('<div/>');
-  pwdDiv.addClass('btn-group');
-  pwdDiv.addClass('btn-group-md');
+function pwdReset(event) {
+	var newPwd = pwd();
+	var handle = $('#pwd'+event.data.which)
+ handle.html(newPwd);
+ handle.attr('data-clipboard-text',newPwd);
+}
 
+function addPwdBlock(which) {
   var pwdLeft = $('<button/>');
-  pwdLeft.css({ width: "240px" });
   pwdLeft.attr('id','pwd'+which);
+  pwdLeft.css({ width: "240px" });
   pwdLeft.attr('type','button');
   pwdLeft.addClass('btn');
   pwdLeft.addClass('btn-default');
+  pwdLeft.addClass('btn-pwd');
 		var newPwd = pwd();
-  console.log(newPwd);
+  //console.log(newPwd);
   pwdLeft.append(newPwd);
-  pwdDiv.append(pwdLeft);
+  pwdLeft.attr('data-clipboard-text',newPwd);
 
   var pwdRight = $('<button/>');
   pwdRight.attr('id','flag'+which);
@@ -70,61 +81,23 @@ function addPwdBlock(which) {
   pwdRight.addClass('btn');
   pwdRight.addClass('btn-success');
   pwdRight.addClass('fader');
-		//var duration = (Math.random()*10) + 10;
-		var duration = (which/2) + 10;
-		console.log(duration);
 		pwdRight.css('animation-name','FlagCycle');
-		pwdRight.css('animation-duration',duration+'s');
+  pwdRight.css('animation-duration', $cycle+'s');
+		var delay = (which / $blocks) * $cycle;
+		//console.log("add block delay: "+delay);
+  pwdRight.css('animation-delay',delay+'s');
+  pwdRight.on('animationiteration', {"which": which}, pwdReset);
   pwdRight.append('&nbsp;');
-
-		var resetPwd = function (which) {
-	   console.log("resetting pwd:: "+which);
-    $('#pwd'+which).html(pwd());
-    $('#flag'+which).css('animation-duration','20s');
-  };
-
-		//pwdRight.bind('transitionend webkitTransitionEnd oTransitionEnd', function (which) {
-	   //console.log("resetting pwd:: "+which);
-    //$('#pwd'+which).html(pwd());
-    //$('#flag'+which).css('animation-duration','20s');
-  //});
-
-//pwdRight.addEventListener("animationend", resetPwdX,false);
-//pwdRight.addEventListener("webkitAnimationEnd", resetPwdX,false);
-//pwdRight.addEventListener("oAnimationend", resetPwdX,false);
 		
-
-		pwdRight.bind('animationend webkitAnimationEnd oAnimationEnd', resetPwdX);
-		//pwdRight.bind('animationend webkitAnimationEnd oAnimationEnd', function (which) {
-	   //console.log("resetting pwd:: "+which);
-    //$('#pwd'+which).html(pwd());
-    //$('#flag'+which).css('animation-duration','20s');
-  //});
-
-		//pwdRight.bind('animationend webkitAnimationEnd', resetPwd(which));
-			//$(tag).html(pwd());
-			//$('#flag'+which).css('animation-duration','20s');
-		//} );
-
-		//console.log(">>> "+(duration*1000));
-  //pwdRight.animate({}, duration * 1000, resetPwd(which));
-			    //$('#pwd'+which).html(pwd());
-			    //$('#flag'+which).css('animation-duration','20s');
-  //});
-		
+  var pwdDiv = $('<div/>');
+  pwdDiv.addClass('btn-group');
+  pwdDiv.addClass('btn-group-md');
+  pwdDiv.append(pwdLeft);
   pwdDiv.append(pwdRight);
 
   $('#PwdRoot').append(pwdDiv);
   $('#PwdRoot').append($('<p>'));
 }
-
-function resetPwdX (e) {
-	   console.log("resetPwdX()");
-	   console.log(e.target());
-    //$('#pwd'+which).html(pwd());
-    //$('#flag'+which).css('animation-duration','20s');
-  };
-
 
 
 // Best
@@ -137,40 +110,6 @@ function pwdV2() {
   return w() + n[0] + w() + n[1] + w();
 }
  
-function putPwd() {
-  //$('#PwdRoot').empty();
-  $('#PwdRoot').append( $('<span />').addClass('pwdBlock').append(pwd()));
-  $('#PwdRoot').append( $('<br>'));
-  //$('#PwdRoot').append( $('<span />').addClass('pwdBlock').append(pwdV2()));
-  //$('#PwdRoot').append( $('<p>'));
-}
-
-function putTime() {
-  $('#TimeRoot').empty();
-  var date = new Date();
-  var meridian = "am";
-  var putString = "";
-  var hours = date.getHours();
-  if (hours>12) {
-    meridian = "pm";
-    hours -= 12;
-  }
-  if (hours == 0) hours = 12;
-  putString += hours;
-  putString += ":" + pad2(date.getMinutes());
-  putString += " " + meridian;
-  $('#TimeRoot').append(putString);
-  //console.log(putString);
-}
-
-function putQuote() {
-  $('#QuoteRoot').empty();
-  //console.log(quoteIndex+": "+quotes[quoteIndex]);
-  $('#QuoteRoot').append(quotes[quoteIndex]);
-  quoteIndex++;
-  quoteIndex %= quotes.length;
-}
-
 function getNumbersV2() {
   var dgt = new Array(0,1,2,3,4,5,6,7,8,9);
   shuffle(dgt);

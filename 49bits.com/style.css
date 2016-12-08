@@ -9,6 +9,17 @@ body {
 
 @keyframes FlagCycle {
   0%   { background-color:#5cb85c; border-color:449d44 }
+  85%   { background-color:#5cb85c; border-color:449d44 }
+  87%   { background-color:#d9534f; border-color:c9302c }
+  90%   { background-color:#c9302c; border-color:c9302c }
+  92%   { background-color:#d9534f; border-color:c9302c }
+  95%   { background-color:#c9302c; border-color:c9302c }
+  97%   { background-color:#d9534f; border-color:c9302c }
+  100%   { background-color:#5cb85c; border-color:449d44 }
+}
+
+@keyframes FlagCycle0 {
+  0%   { background-color:#5cb85c; border-color:449d44 }
   58%   { background-color:#5cb85c; border-color:449d44 }
   60%   { background-color:#f0ad4e; border-color:ec971f }
   78%   { background-color:#f0ad4e; border-color:ec971f }
@@ -18,6 +29,7 @@ body {
 }
 
 button.fader {
+  animation-name: FlagCycle;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
 }
