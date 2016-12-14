@@ -70,6 +70,9 @@ function addPwdBlock(which) {
   pwdLeft.addClass('btn');
   pwdLeft.addClass('btn-default');
   pwdLeft.addClass('btn-pwd');
+  pwdLeft.attr('data-toggle','popover');
+  //pwdLeft.attr('title','Copied');
+  pwdLeft.attr('data-content','Copied');
 		var newPwd = pwd();
   //console.log(newPwd);
   pwdLeft.append(newPwd);
@@ -98,6 +101,23 @@ function addPwdBlock(which) {
   $('#PwdRoot').append(pwdDiv);
   $('#PwdRoot').append($('<p>'));
 }
+
+$(function () {
+  $('[data-toggle="popover"]').popover()
+  $('[data-toggle="popover"]').on('shown.bs.popover', function() {
+    this_popover = $(this);
+    setTimeout(function () {
+        this_popover.popover('hide');
+    }, 333);
+  });
+})
+
+
+
+
+// <button            type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
+
+// <button id="flag0" type="button" class="btn btn-success fader" data-toggle="popover" title="Copied"        data-content="..." style="animation-name: FlagCycle; animation-duration: 20s; animation-delay: 0s;">&nbsp;</button>
 
 
 // Best
