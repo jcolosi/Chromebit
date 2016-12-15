@@ -1,11 +1,21 @@
 body {
-  background: no-repeat fixed center; 
-  background-color: #fff;
+	 /* This is an exact emulation of Weebly's background. */
+  background: url("night.jpg") no-repeat fixed center; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
-  background-size: cover; // contain
+  background-size: cover;
+		
+	 /* This is like Weebly's, but pins image to the bottom of the page. */
+		/*
+  background: url("ocean.jpg") no-repeat fixed bottom; 
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+		*/
 }
+
 
 @keyframes FlagCycle {
   0%   { background-color:#5cb85c; border-color:#449d44 }
@@ -32,6 +42,22 @@ button.fader {
   animation-name: FlagCycle;
   animation-timing-function: ease-in-out;
   animation-iteration-count: infinite;
+}
+
+.pwdBlocks {
+    position: absolute;
+    left: 5%;
+    top: 200px;
+}
+
+.center {
+    width: 50%;
+    margin: 0 auto; 
+}
+
+#logo {
+ text-align:center;
+ display:block;
 }
 
 .popover-title { display: none; }
