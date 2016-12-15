@@ -45,7 +45,7 @@ function nx() {
 // Animationend event is never thrown with iteration-count=infinite
 // Use animation-iteration with infinite
 
-$blocks = 20
+$blocks = 17
 $cycle = 20
 
 function initPwd() {
@@ -57,9 +57,12 @@ function initPwd() {
 
 function pwdReset(event) {
 	var newPwd = pwd();
-	var handle = $('#pwd'+event.data.which)
- handle.html(newPwd);
- handle.attr('data-clipboard-text',newPwd);
+	var pwdHandle = $('#pwd'+event.data.which)
+ pwdHandle.html(newPwd);
+ pwdHandle.attr('data-clipboard-text',newPwd);
+	var flagHandle = $('#flag'+event.data.which)
+	flagHandle.css('animation-name','FlagCycleMain');
+ flagHandle.css('animation-delay','');
 }
 
 function addPwdBlock(which) {
@@ -73,6 +76,7 @@ function addPwdBlock(which) {
   pwdLeft.attr('data-toggle','popover');
   //pwdLeft.attr('title','Copied');
   pwdLeft.attr('data-content','Copied');
+  pwdLeft.css('border-color', '#000000');
 		var newPwd = pwd();
   //console.log(newPwd);
   pwdLeft.append(newPwd);
@@ -84,10 +88,12 @@ function addPwdBlock(which) {
   pwdRight.addClass('btn');
   pwdRight.addClass('btn-success');
   pwdRight.addClass('fader');
-		pwdRight.css('animation-name','FlagCycle');
+		pwdRight.css('animation-name','FlagCycleInit');
   pwdRight.css('animation-duration', $cycle+'s');
+  pwdRight.css('background-color', '#007E33');
+  pwdRight.css('border-color', '#000000');
 		var delay = (which / $blocks) * $cycle;
-		//console.log("add block delay: "+delay);
+		//console.log("delay ("+which+"): "+delay);
   pwdRight.css('animation-delay',delay+'s');
   pwdRight.on('animationiteration', {"which": which}, pwdReset);
   pwdRight.append('&nbsp;');
@@ -111,14 +117,6 @@ $(function () {
     }, 333);
   });
 })
-
-
-
-
-// <button            type="button" class="btn btn-lg btn-danger" data-toggle="popover" title="Popover title" data-content="And here's some amazing content. It's very engaging. Right?">Click to toggle popover</button>
-
-// <button id="flag0" type="button" class="btn btn-success fader" data-toggle="popover" title="Copied"        data-content="..." style="animation-name: FlagCycle; animation-duration: 20s; animation-delay: 0s;">&nbsp;</button>
-
 
 // Best
 function pwd() {

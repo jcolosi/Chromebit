@@ -17,25 +17,17 @@ body {
 }
 
 
-@keyframes FlagCycle {
-  0%   { background-color:#5cb85c; border-color:#449d44 }
-  85%   { background-color:#5cb85c; border-color:#449d44 }
-  87%   { background-color:#d9534f; border-color:#c9302c }
-  90%   { background-color:#c9302c; border-color:#c9302c }
-  92%   { background-color:#d9534f; border-color:#c9302c }
-  95%   { background-color:#c9302c; border-color:#c9302c }
-  97%   { background-color:#d9534f; border-color:#c9302c }
-  100%   { background-color:#5cb85c; border-color:#449d44 }
+@keyframes FlagCycleInit {
+  0%   { background-color:#007E33; border-color:#000 }
+  97%  { background-color:#000000; border-color:#000 }
+  100% { background-color:#FF8800; border-color:#000 }
 }
 
-@keyframes FlagCycle0 {
-  0%   { background-color:#5cb85c; border-color:#449d44 }
-  58%   { background-color:#5cb85c; border-color:#449d44 }
-  60%   { background-color:#f0ad4e; border-color:#ec971f }
-  78%   { background-color:#f0ad4e; border-color:#ec971f }
-  80%   { background-color:#d9534f; border-color:#c9302c }
-  98%   { background-color:#d9534f; border-color:#c9302c }
-  100%   { background-color:#5cb85c; border-color:#449d44 }
+@keyframes FlagCycleMain {
+  0%   { background-color:#FF8800; border-color:#000 }
+  3%   { background-color:#007E33; border-color:#000 }
+  97%  { background-color:#000000; border-color:#000 }
+  100% { background-color:#FF8800; border-color:#000 }
 }
 
 button.fader {
