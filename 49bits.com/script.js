@@ -24,16 +24,16 @@ function repeat(handle, seconds) {
 
 // Return a random word
 function w() {
- var out = words[wordIndex++];
- wordIndex %= words.length;
- return out;
+  var out = words[wordIndex++];
+  wordIndex %= words.length;
+  return out;
 }
 
 // Return a random number
 function n() {
- var out = nums[numIndex++];
- numIndex %= nums.length;
- return out;
+  var out = nums[numIndex++];
+  numIndex %= nums.length;
+  return out;
 }
 
 // Return a number on [0,999]
@@ -45,30 +45,37 @@ function nx() {
 // Animationend event is never thrown with iteration-count=infinite
 // Use animation-iteration with infinite
 
-$blocks = 17
+$blocks = 14
 $cycle = 20
+$rows = $blocks/2;
 
 function initPwd() {
   $('#PwdRoot').empty();
-  for (i = 0; i < $blocks; i++) {
-    addPwdBlock(i);
+
+  var pwdTable = $('<table/>');
+  pwdTable.addClass('padder');
+
+  for (i = 0; i < $rows; i++) {
+    pwdTable.append(getPwdRow(i));
   }
+
+  $('#PwdRoot').append(pwdTable);
 }
 
-function pwdReset(event) {
-	var newPwd = pwd();
-	var pwdHandle = $('#pwd'+event.data.which)
- pwdHandle.html(newPwd);
- pwdHandle.attr('data-clipboard-text',newPwd);
-	var flagHandle = $('#flag'+event.data.which)
-	flagHandle.css('animation-name','FlagCycleMain');
- flagHandle.css('animation-delay','');
+function getPwdRow(row) {
+  var pwdBlockA = getPwdBlock(row, 0);
+  var pwdBlockB = getPwdBlock(row, 1);
+  var pwdRow = $('<tr/>');
+  pwdRow.append( $('<td/>').append(pwdBlockA) );
+  pwdRow.append( $('<td/>').append(pwdBlockB) );
+  return pwdRow;
 }
 
-function addPwdBlock(which) {
+function getPwdBlock(row, col) {
+  var which = (col*$rows)+row;
   var pwdLeft = $('<button/>');
   pwdLeft.attr('id','pwd'+which);
-  pwdLeft.css({ width: "240px" });
+  pwdLeft.css({ width: "300px" });
   pwdLeft.attr('type','button');
   pwdLeft.addClass('btn');
   pwdLeft.addClass('btn-default');
@@ -77,7 +84,7 @@ function addPwdBlock(which) {
   //pwdLeft.attr('title','Copied');
   pwdLeft.attr('data-content','Copied');
   pwdLeft.css('border-color', '#000000');
-		var newPwd = pwd();
+  var newPwd = pwd();
   //console.log(newPwd);
   pwdLeft.append(newPwd);
   pwdLeft.attr('data-clipboard-text',newPwd);
@@ -88,24 +95,32 @@ function addPwdBlock(which) {
   pwdRight.addClass('btn');
   pwdRight.addClass('btn-success');
   pwdRight.addClass('fader');
-		pwdRight.css('animation-name','FlagCycleInit');
+  pwdRight.css('animation-name','FlagCycleInit');
   pwdRight.css('animation-duration', $cycle+'s');
   pwdRight.css('background-color', '#007E33');
   pwdRight.css('border-color', '#000000');
-		var delay = (which / $blocks) * $cycle;
-		//console.log("delay ("+which+"): "+delay);
+  var delay = (which / $blocks) * $cycle;
+  //console.log("delay ("+which+"): "+delay);
   pwdRight.css('animation-delay',delay+'s');
   pwdRight.on('animationiteration', {"which": which}, pwdReset);
   pwdRight.append('&nbsp;');
-		
+  
   var pwdDiv = $('<div/>');
   pwdDiv.addClass('btn-group');
-  pwdDiv.addClass('btn-group-md');
+  pwdDiv.addClass('btn-group-lg');
   pwdDiv.append(pwdLeft);
   pwdDiv.append(pwdRight);
+  return pwdDiv;
+}
 
-  $('#PwdRoot').append(pwdDiv);
-  $('#PwdRoot').append($('<p>'));
+function pwdReset(event) {
+  var newPwd = pwd();
+  var pwdHandle = $('#pwd'+event.data.which)
+  pwdHandle.html(newPwd);
+  pwdHandle.attr('data-clipboard-text',newPwd);
+  var flagHandle = $('#flag'+event.data.which)
+  flagHandle.css('animation-name','FlagCycleMain');
+  flagHandle.css('animation-delay','');
 }
 
 $(function () {
@@ -113,7 +128,7 @@ $(function () {
   $('[data-toggle="popover"]').on('shown.bs.popover', function() {
     this_popover = $(this);
     setTimeout(function () {
-        this_popover.popover('hide');
+      this_popover.popover('hide');
     }, 333);
   });
 })

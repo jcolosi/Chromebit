@@ -1,19 +1,19 @@
 body {
-	 /* This is an exact emulation of Weebly's background. */
+  /* This is an exact emulation of Weebly's background. */
   background: url("night.jpg") no-repeat fixed center; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-		
-	 /* This is like Weebly's, but pins image to the bottom of the page. */
-		/*
+  
+  /* This is like Weebly's, but pins image to the bottom of the page. */
+  /*
   background: url("ocean.jpg") no-repeat fixed bottom; 
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-		*/
+  */
 }
 
 
@@ -46,6 +46,11 @@ button.fader {
     width: 50%;
     margin: 0 auto; 
 }
+
+table.padder { 
+    border-collapse: separate;
+    border-spacing: 64px 16px;
+} 
 
 #logo {
  text-align:center;
