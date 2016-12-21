@@ -1,14 +1,14 @@
 body {
   /* This is an exact emulation of Weebly's background. */
-  background: url("night.jpg") no-repeat fixed center; 
+  background: url("night.jpg") no-repeat fixed center;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
   background-size: cover;
-  
+
   /* This is like Weebly's, but pins image to the bottom of the page. */
   /*
-  background: url("ocean.jpg") no-repeat fixed bottom; 
+  background: url("ocean.jpg") no-repeat fixed bottom;
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -16,6 +16,16 @@ body {
   */
 }
 
+#PwdRoot {
+  columns: 2;
+  width: 800px;
+}
+
+@media handheld {
+  #PwdRoot {
+    columns: 1;
+  }
+}
 
 @keyframes FlagCycleInit {
   0%   { background-color:#007E33; border-color:#000 }
@@ -37,20 +47,10 @@ button.fader {
 }
 
 .pwdBlocks {
-    position: absolute;
-    left: 5%;
-    top: 200px;
+  position: absolute;
+  left: 5%;
+  top: 200px;
 }
-
-.center {
-    width: 50%;
-    margin: 0 auto; 
-}
-
-table.padder { 
-    border-collapse: separate;
-    border-spacing: 64px 16px;
-} 
 
 #logo {
  text-align:center;

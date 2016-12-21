@@ -47,13 +47,12 @@ function nx() {
 
 $blocks = 14
 $cycle = 20
-$rows = $blocks/2;
+$rows = $blocks;
 
 function initPwd() {
   $('#PwdRoot').empty();
 
   var pwdTable = $('<table/>');
-  pwdTable.addClass('padder');
 
   for (i = 0; i < $rows; i++) {
     pwdTable.append(getPwdRow(i));
@@ -63,11 +62,12 @@ function initPwd() {
 }
 
 function getPwdRow(row) {
-  var pwdBlockA = getPwdBlock(row, 0);
-  var pwdBlockB = getPwdBlock(row, 1);
+  var pwdBlock = getPwdBlock(row, 0);
   var pwdRow = $('<tr/>');
-  pwdRow.append( $('<td/>').append(pwdBlockA) );
-  pwdRow.append( $('<td/>').append(pwdBlockB) );
+  var pwdCell = $('<td/>');
+  pwdCell.css('height', '64px');
+  pwdCell.append(pwdBlock);
+  pwdRow.append(pwdCell);
   return pwdRow;
 }
 
