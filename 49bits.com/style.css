@@ -16,14 +16,10 @@ body {
   */
 }
 
-#PwdRoot {
-  columns: 2;
-  width: 800px;
-}
-
-@media handheld {
+@media all and (min-width: 800px) {
   #PwdRoot {
-    columns: 1;
+    columns: 2;
+    width: 800px;
   }
 }
 
