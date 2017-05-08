@@ -1,12 +1,12 @@
 var gifs = new Array();
-for (i=1; i<=41; i++) {
+for (i=1; i<=110; i++) {
 	gifs.push(i+".gif");
 }
 shuffle(gifs);
 var gifIndex = 0;
 
 // Event timings
-$interval = 60
+$interval = 20;//60
 repeat(putGif,$interval);
 
 function repeat(handle, seconds) {
@@ -19,7 +19,7 @@ function putGif() {
   $image.attr('src',"gifs/"+gifs[gifIndex]);
   gifIndex++;
   gifIndex %= gifs.length;
-  console.log(">>>> "+$image.attr('src'));
+  console.log("Showing "+$image.attr('src'));
 }
 
 function shuffle(array) {
